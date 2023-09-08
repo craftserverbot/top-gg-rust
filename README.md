@@ -7,7 +7,7 @@
 [github-license-url]: https://github.com/top-gg/rust-sdk/blob/main/LICENSE
 [blazingly-fast-image]: https://img.shields.io/badge/speed-BLAZINGLY%20FAST!!!%20%F0%9F%94%A5%F0%9F%9A%80%F0%9F%92%AA%F0%9F%98%8E-brightgreen.svg?style=flat-square
 [blazingly-fast-url]: https://twitter.com/acdlite/status/974390255393505280
-The official Rust SDK for the [Top.gg API](https://docs.top.gg).
+The (forked) Rust SDK for the [Top.gg API](https://docs.top.gg).
 
 ## Getting Started
 
@@ -42,12 +42,12 @@ use topgg::Client;
 #[tokio::main]
 async fn main() {
   let client = Client::new(env!("TOPGG_TOKEN"));
-  
+
   let user = client.get_user(661200758510977084).await.unwrap();
-  
+
   assert_eq!(user.username, "null");
   assert_eq!(user.id, 661200758510977084);
-  
+
   println!("{:?}", user);
 }
 ```
@@ -62,12 +62,12 @@ use topgg::Client;
 #[tokio::main]
 async fn main() {
   let client = Client::new(env!("TOPGG_TOKEN"));
-  
+
   let bot = client.get_bot(264811613708746752).await.unwrap();
-  
+
   assert_eq!(bot.username, "Luca");
   assert_eq!(bot.id, 264811613708746752);
-  
+
   println!("{:?}", bot);
 }
 ```
@@ -82,7 +82,7 @@ use topgg::{Client, Filter, Query};
 #[tokio::main]
 async fn main() {
   let client = Client::new(env!("TOPGG_TOKEN"));
-  
+
   // inputting a string searches a bot that matches that username.
   for bot in client.get_bots("shiro").await.unwrap() {
     println!("{:?}", bot);
@@ -255,11 +255,11 @@ async fn index() -> &'static str {
 async fn main() {
   let password = env!("TOPGG_WEBHOOK_PASSWORD").to_owned();
   let state = MyVoteHandler {};
-  
+
   let app = Router::new()
     .route("/", get(index))
     .nest("/webhook", topgg::axum::webhook(password, state));
-  
+
   // this will always be a valid SocketAddr syntax,
   // therefore we can safely unwrap_unchecked this.
   let addr = unsafe { "127.0.0.1:8080".parse().unwrap_unchecked() };
