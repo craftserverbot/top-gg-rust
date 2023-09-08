@@ -44,7 +44,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 rustc-args = ["--cfg", "docsrs"]
 
 [features]
-default = ["api"]
+default = ["api", "rustls-tls"]
 api = [
     "dep:chrono",
     "dep:serde_json",
@@ -53,6 +53,8 @@ api = [
     "dep:urlencoding",
 ]
 autoposter = ["api", "dep:tokio", "tokio?/rt", "tokio?/sync", "tokio?/time"]
+rustls-tls = ["api", "reqwest/rustls-tls"]
+native-tls = ["api", "reqwest/native-tls"]
 
 webhook = []
 rocket = ["webhook", "dep:serde_json", "dep:rocket"]
