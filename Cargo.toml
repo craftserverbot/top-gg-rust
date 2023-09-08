@@ -2,8 +2,12 @@
 name = "topgg"
 version = "1.1.1"
 edition = "2021"
-authors = ["null (https://github.com/null8626)", "Top.gg <support@top.gg> (https://top.gg)"]
-description = "The official Rust wrapper for the Top.gg API"
+authors = [
+    "CraftServer <bot@craftserver.net> (https://craftserver.net)",
+    "null (https://github.com/null8626)",
+    "Top.gg <support@top.gg> (https://top.gg)",
+]
+description = "The (forked) Rust wrapper for the Top.gg API"
 readme = "README.md"
 repository = "https://github.com/top-gg/rust-sdk"
 license = "MIT"
@@ -16,13 +20,20 @@ cfg-if = "1"
 serde = { version = "1", features = ["derive"] }
 urlencoding = { version = "2", optional = true }
 
-chrono = { version = "0.4", default-features = false, optional = true, features = ["serde"] }
+chrono = { version = "0.4", default-features = false, optional = true, features = [
+    "serde",
+] }
 tokio = { version = "1", optional = true, features = ["net", "io-util"] }
-reqwest = { version = "0.11", optional = true, features = ["json"], default-features = false }
+reqwest = { version = "0.11", optional = true, features = [
+    "json",
+], default-features = false }
 serde_json = { version = "1", optional = true }
 
 rocket = { version = "0.4", default-features = false, optional = true }
-axum = { version = "0.6", default-features = false, optional = true, features = ["http1", "tokio"] }
+axum = { version = "0.6", default-features = false, optional = true, features = [
+    "http1",
+    "tokio",
+] }
 async-trait = { version = "0.1", optional = true }
 warp = { version = "0.3", default-features = false, optional = true }
 actix-web = { version = "4", default-features = false, optional = true }
@@ -34,7 +45,13 @@ rustc-args = ["--cfg", "docsrs"]
 
 [features]
 default = ["api"]
-api = ["dep:chrono", "dep:serde_json", "dep:tokio", "dep:reqwest", "dep:urlencoding"]
+api = [
+    "dep:chrono",
+    "dep:serde_json",
+    "dep:tokio",
+    "dep:reqwest",
+    "dep:urlencoding",
+]
 autoposter = ["api", "dep:tokio", "tokio?/rt", "tokio?/sync", "tokio?/time"]
 
 webhook = []
