@@ -1,4 +1,4 @@
-use chrono::{naive::NaiveDateTime, DateTime, Utc};
+use chrono::{naive::NaiveDateTime, DateTime, TimeZone, Utc};
 use serde::{Deserialize, Deserializer};
 
 const DISCORD_EPOCH: u64 = 1420070400000;
@@ -36,10 +36,9 @@ where
 /// WARNING:
 /// if this timestamp overflows, the [`std::default::Default::default(chrono::NaiveDateTime)`] value will be used
 pub(crate) fn get_creation_date(id: u64) -> DateTime<Utc> {
-  DateTime::from_utc(
-    NaiveDateTime::from_timestamp_millis(((id >> 22) + DISCORD_EPOCH) as _).unwrap_or_default(),
-    Utc,
-  )
+  let naive =
+    NaiveDateTime::from_timestamp_millis(((id >> 22) + DISCORD_EPOCH) as _).unwrap_or_default();
+  Utc.from_utc_datetime(&naive)
 }
 
 pub(crate) fn get_avatar(hash: &Option<String>, id: u64) -> String {
